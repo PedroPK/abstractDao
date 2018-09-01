@@ -3,7 +3,12 @@ package br.psc.model.dao;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+
 import static org.junit.Assert.*;
+
+import org.hibernate.LazyInitializationException;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.psc.model.dao.ExampleEntityDAO;
@@ -31,6 +36,26 @@ public class ExampleEntityDAOTest {
 		eeDao.deleteObject(exampleEntity);
 	}
 	
+	@Test(expected=LazyInitializationException.class)
+	public void testOneToManyMappingThrowingLazyInitializationException() {
+		// Arrange the Test Data
+		ExampleEntity exampleEntity = new ExampleEntity("123.456.789-01", "Wall-E");
+		exampleEntity.addCollectableEntity(new CollectableEntity("Coins"));
+		exampleEntity.addCollectableEntity(new CollectableEntity("Stamples"));
+		exampleEntity.addCollectableEntity(new CollectableEntity("Comic Books"));
+		exampleEntity.addCollectableEntity(new CollectableEntity("Action Figures"));
+		ExampleEntityDAO eeDao = new ExampleEntityDAO();
+		
+		// Act
+		eeDao.insert(exampleEntity);
+		
+		ExampleEntity selectedEntity = eeDao.selectByEntity(exampleEntity);
+		Collection<CollectableEntity> collectables = selectedEntity.getCollectionEntities();
+		System.out.println(collectables);
+		
+		eeDao.deleteObject(exampleEntity);
+	}
+	
 	@Test
 	public void testOneToManyMapping() {
 		// Arrange the Test Data
@@ -43,8 +68,16 @@ public class ExampleEntityDAOTest {
 		
 		// Act
 		eeDao.insert(exampleEntity);
-		ExampleEntity selectedEntity = eeDao.selectByEntity(exampleEntity);
+		
+		EntityManager em = UtilJPA.getEntityManager();
+		
+		ExampleEntity selectedEntity = eeDao.selectByEntity(exampleEntity, em, false);
 		Collection<CollectableEntity> collectables = selectedEntity.getCollectionEntities();
+		System.out.println(collectables);
+		for (CollectableEntity collectableEntity : collectables) {
+			System.out.println( collectableEntity.getName() );
+		}
+		em.close();
 		
 		eeDao.deleteObject(exampleEntity);
 	}
