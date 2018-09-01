@@ -8,165 +8,112 @@ import br.psc.model.entity.EntityInterface;
 public abstract class AbstractDAO //implements InterfaceDAO
 {
 	
-	private Class classeEntidade;
+	private Class entityClass;
 	
-	public void definirClasseEntidade(Class pClasseEntidade ) {
-		this.classeEntidade = pClasseEntidade;
+	public void defineEntityClass(Class pEntityClass) {
+		this.entityClass = pEntityClass;
 	}
 	
-	public Class getClasseEntidade() {
-		return this.classeEntidade;
+	public Class getEntityClass() {
+		return this.entityClass;
 	}
 	
 	/*
-	 * Versão anterior do método abaixo
-	 * 
-	 * 
-	public void inserir(Object pObject) {
-		EntityManager manager = UtilJPA.getEntityManager();
-		inserir(pObject, manager, true);
-	}
-	*/
-	public void inserir(Object pObject) {
-		inserir(pObject, UtilJPA.getEntityManager(), true);
+	 * Method to Insert/Create a new Registry in the Database
+	 */
+	public void insert(Object pObject) {
+		insert(pObject, UtilJPA.getEntityManager(), true);
 	}
 	
-	public void inserir(Object pObject, EntityManager pEntityManager, boolean pFecharEntityManager) {
-		EntityTransaction transacao = pEntityManager.getTransaction();
-		transacao.begin();
+	public void insert(Object pObject, EntityManager pEntityManager, boolean pCloseEntityManager) {
+		EntityTransaction transaction = pEntityManager.getTransaction();
+		transaction.begin();
 		
 		pEntityManager.persist(pObject);
 		
-		transacao.commit();
+		transaction.commit();
 		
-		if ( pFecharEntityManager ) {
+		if ( pCloseEntityManager ) {
 			pEntityManager.close();
 		}
 	}
 	
 	/*
-	 * Versão anterior do método abaixo
-	 * 
-	 * 
-	public void alterar(Object pObject) {
-		EntityManager manager = UtilJPA.getEntityManager();
-		EntityTransaction transacao = manager.getTransaction();
-		transacao.begin();
-		
-		manager.merge(pObject);
-		
-		transacao.commit();
-		manager.close();
-	}*/
-	public void alterar(Object pObject) {
-		alterar(pObject, UtilJPA.getEntityManager(), true);
+	 * Method to Update/Merge a Registry in the Database
+	 */
+	public void update(Object pObject) {
+		update(pObject, UtilJPA.getEntityManager(), true);
 	}
 	
-	public void alterar(Object pObject, EntityManager pEntityManager, boolean pFecharEntityManager) {
-		EntityTransaction transacao = pEntityManager.getTransaction();
-		transacao.begin();
+	public void update(Object pObject, EntityManager pEntityManager, boolean pCloseEntityManager) {
+		EntityTransaction transaction = pEntityManager.getTransaction();
+		transaction.begin();
 		
 		pEntityManager.merge(pObject);
 		
-		transacao.commit();
+		transaction.commit();
 		
-		if ( pFecharEntityManager ) {
+		if ( pCloseEntityManager ) {
 			pEntityManager.close();
 		}
 	}
 	
 	/*
-	 * Versão anterior do método abaixo
-	 * 
-	 * 
-	public void excluirPorObjeto(Class pClasse, Entidade pEntidade) {
-		EntityManager manager = UtilJPA.getEntityManager();
-		EntityTransaction transacao = manager.getTransaction();
-		transacao.begin();
-		
-		Object registro = manager.find(pClasse, pEntidade.getChavePrimaria());
-		manager.remove(registro);
-		
-		transacao.commit();
-		manager.close();
-	}
+	 * Method to Delete/Remove a Registry in the Database, by receiving an Entity's
 	/*/
-	public void excluirPorObjeto(EntityInterface pEntidade) {
-		excluirPorObjeto(pEntidade.getClass(), pEntidade, UtilJPA.getEntityManager(), true);
+	public void deleteObject(EntityInterface pEntity) {
+		deleteObject(pEntity.getClass(), pEntity, UtilJPA.getEntityManager(), true);
 	}
-	public void excluirPorObjeto(Class pClasse, EntityInterface pEntidade) {
-		excluirPorObjeto(pClasse, pEntidade, UtilJPA.getEntityManager(), true);
+	public void deleteObject(Class pClass, EntityInterface pEntity) {
+		deleteObject(pClass, pEntity, UtilJPA.getEntityManager(), true);
 	}
-	public void excluirPorObjeto(Class pClasse, EntityInterface pEntidade, EntityManager pEntityManager, boolean pFecharEntityManager) {
-		EntityTransaction transacao = pEntityManager.getTransaction();
-		transacao.begin();
+	public void deleteObject(Class pClass, EntityInterface pEntidade, EntityManager pEntityManager, boolean pCloseEntityManager) {
+		EntityTransaction transaction = pEntityManager.getTransaction();
+		transaction.begin();
 		
-		Object registro = pEntityManager.find(pClasse, pEntidade.getChavePrimaria());
-		pEntityManager.remove(registro);
+		Object registry = pEntityManager.find(pClass, pEntidade.getPrimaryKey());
+		pEntityManager.remove(registry);
 		
-		transacao.commit();
+		transaction.commit();
 		
-		if (pFecharEntityManager ) {
+		if ( pCloseEntityManager ) {
 			pEntityManager.close();
 		}
 	}
 	
 	/*
-	 * Versão anterior do método abaixo
-	 * 
-	 * 
-	public void excluirPorChavePrimaria(Class pClasse, Object pChavePrimaria) {
-		EntityManager manager = UtilJPA.getEntityManager();
-		EntityTransaction transacao = manager.getTransaction();
-		transacao.begin();
-		
-		Object registro = manager.find(pClasse, pChavePrimaria);
-		manager.remove(registro);
-		
-		transacao.commit();
-		manager.close();
-	}
+	 * Method to Delete/Remove a Registry in the Database, by receiving an Entity's Primary Key
 	*/
-	public void excluirPorChavePrimaria(Class pClasse, Object pChavePrimaria) {
-		excluirPorChavePrimaria(pClasse, pChavePrimaria, UtilJPA.getEntityManager(), true);
+	public void deleteByPrimaryKey(Class pClass, Object pPrimaryKey) {
+		deleteByPrimaryKey(pClass, pPrimaryKey, UtilJPA.getEntityManager(), true);
 	}
-	public void excluirPorChavePrimaria(Class pClasse, Object pChavePrimaria, EntityManager pEntityManager, boolean pFecharEntityManager) {
-		EntityTransaction transacao = pEntityManager.getTransaction();
-		transacao.begin();
+	public void deleteByPrimaryKey(Class pClass, Object pPrimaryKey, EntityManager pEntityManager, boolean pCloseEntityManager) {
+		EntityTransaction transaction = pEntityManager.getTransaction();
+		transaction.begin();
 		
-		Object registro = pEntityManager.find(pClasse, pChavePrimaria);
-		pEntityManager.remove(registro);
+		Object registry = pEntityManager.find(pClass, pPrimaryKey);
+		pEntityManager.remove(registry);
 		
-		transacao.commit();
-		if ( pFecharEntityManager ) {
+		transaction.commit();
+		if ( pCloseEntityManager ) {
 			pEntityManager.close();
 		}
 	}
 	
-	/*
-	 * Versão anterior do método abaixo
-	 * 
-	 * 
-	public Object consultar(Class pClasse, Object pPrimaryKey) {
-		EntityManager manager = UtilJPA.getEntityManager();
-		
-		Object registro = manager.find(pClasse, pPrimaryKey);
-		
-		manager.close();
-		return registro;
+	/**
+	 * Method to Select/Find a Registry in the Database, by receiving an Entity's Primary Key
+	 */
+	public Object select(Class pClass, Object pPrimaryKey) {
+		return select(pClass, pPrimaryKey, UtilJPA.getEntityManager(), true);
 	}
-	*/
-	public Object consultar(Class pClasse, Object pPrimaryKey) {
-		return consultar(pClasse, pPrimaryKey, UtilJPA.getEntityManager(), true);
-	}
-	public Object consultar(Class pClasse, Object pPrimaryKey, EntityManager pEntityManager, boolean pFecharEntityManager) {
-		Object registro = pEntityManager.find(pClasse, pPrimaryKey);
+	public Object select(Class pClass, Object pPrimaryKey, EntityManager pEntityManager, boolean pCloseEntityManager) {
+		Object registry = pEntityManager.find(pClass, pPrimaryKey);
 		
-		if ( pFecharEntityManager ) {
+		if ( pCloseEntityManager ) {
 			pEntityManager.close();
 		}
 		
-		return registro;
+		return registry;
 	}
 	
 }
