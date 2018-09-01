@@ -1,17 +1,34 @@
 package br.psc.model.entity;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ExampleEntity implements EntityInterface {
 	
 	@Id
-	private String	id;
-	private String	name;
-	private Date	registrationDate;
+	private String							id;
+	private String							name;
+	private Date							registrationDate;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private Collection<CollectableEntity>	collectionEntities;
+	
+	public ExampleEntity() {}
+	
+	public ExampleEntity(String pId, String pName) {
+		this.id = pId;
+		this.name = pName;
+		
+		this.registrationDate = Calendar.getInstance().getTime();
+	}
 	
 	public Object getPrimaryKey() {
 		return getId();
@@ -40,7 +57,23 @@ public class ExampleEntity implements EntityInterface {
 	public void setRegistrationDate(Date pRegistrationData) {
 		this.registrationDate = pRegistrationData;
 	}
+	
+	public Collection<CollectableEntity> getCollectionEntities() {
+		return collectionEntities;
+	}
 
+	public void setCollectionEntities(Collection<CollectableEntity> pCollectionEntities) {
+		this.collectionEntities = pCollectionEntities;
+	}
+	
+	public void addCollectableEntity(CollectableEntity pCollectableEntity) {
+		if ( this.collectionEntities == null ) {
+			this.collectionEntities = new ArrayList<CollectableEntity>();
+		}
+		
+		this.collectionEntities.add(pCollectableEntity);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
