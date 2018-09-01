@@ -67,12 +67,17 @@ public abstract class AbstractDAO //implements InterfaceDAO
 	public void deleteObject(Class pClass, EntityInterface pEntity) {
 		deleteObject(pClass, pEntity, UtilJPA.getEntityManager(), true);
 	}
-	public void deleteObject(Class pClass, EntityInterface pEntidade, EntityManager pEntityManager, boolean pCloseEntityManager) {
+	public void deleteObject(
+		Class				pClass, 
+		EntityInterface		pEntidade, 
+		EntityManager		pEntityManager, 
+		boolean				pCloseEntityManager
+	) {
 		EntityTransaction transaction = pEntityManager.getTransaction();
 		transaction.begin();
 		
-		Object registry = pEntityManager.find(pClass, pEntidade.getPrimaryKey());
-		pEntityManager.remove(registry);
+		Object registryToBeDeleted = pEntityManager.find(pClass, pEntidade.getPrimaryKey());
+		pEntityManager.remove(registryToBeDeleted);
 		
 		transaction.commit();
 		
@@ -103,11 +108,27 @@ public abstract class AbstractDAO //implements InterfaceDAO
 	/**
 	 * Method to Select/Find a Registry in the Database, by receiving an Entity's Primary Key
 	 */
-	public Object select(Class pClass, Object pPrimaryKey) {
-		return select(pClass, pPrimaryKey, UtilJPA.getEntityManager(), true);
+	public Object selectByPrimaryKey(Class pClass, Object pPrimaryKey) {
+		return selectByPrimaryKey(pClass, pPrimaryKey, UtilJPA.getEntityManager(), true);
 	}
-	public Object select(Class pClass, Object pPrimaryKey, EntityManager pEntityManager, boolean pCloseEntityManager) {
+	public Object selectByPrimaryKey(Class pClass, Object pPrimaryKey, EntityManager pEntityManager, boolean pCloseEntityManager) {
 		Object registry = pEntityManager.find(pClass, pPrimaryKey);
+		
+		if ( pCloseEntityManager ) {
+			pEntityManager.close();
+		}
+		
+		return registry;
+	}
+	
+	/**
+	 * Method to Select/Find a Registry in the Database, by receiving an Entity's Primary Key
+	 */
+	public Object selectByEntity(Class pClass, EntityInterface pEntity) {
+		return selectByEntity(pClass, pEntity, UtilJPA.getEntityManager(), true);
+	}
+	public Object selectByEntity(Class pClass, EntityInterface pEntity, EntityManager pEntityManager, boolean pCloseEntityManager) {
+		Object registry = pEntityManager.find(pClass, pEntity.getPrimaryKey());
 		
 		if ( pCloseEntityManager ) {
 			pEntityManager.close();
