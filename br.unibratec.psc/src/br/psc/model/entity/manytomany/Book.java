@@ -2,6 +2,7 @@ package br.psc.model.entity.manytomany;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToMany;
 
 import br.psc.model.entity.EntityInterface;
 
+@Entity
 public class Book implements EntityInterface {
 	
 	/**
