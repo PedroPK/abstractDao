@@ -27,6 +27,15 @@ public class Book implements EntityInterface {
 	@ManyToMany
 	private Collection<Author> authors;
 	
+	public Book() {
+		super();
+	}
+	
+	public Book(String pTitle) {
+		super();
+		this.title = pTitle;
+	}
+	
 	public long getIsbn() {
 		return isbn;
 	}

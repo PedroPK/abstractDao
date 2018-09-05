@@ -1,5 +1,6 @@
 package br.psc.model.entity.manytomany;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -26,6 +27,21 @@ public class Author implements EntityInterface {
 	
 	@ManyToMany
 	private Collection<Book> books;
+	
+	public Author() {
+		super();
+	}
+	
+	public Author(String pName) {
+		super();
+		this.name = pName;
+	}
+	
+	public Author(int pId, String pName) {
+		super();
+		this.id = pId;
+		this.name = pName;
+	}
 	
 	@Override
 	public Object getPrimaryKey() {
@@ -88,6 +104,14 @@ public class Author implements EntityInterface {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+	
+	public void addBook(Book pBook) {
+		if ( this.books == null ) {
+			this.books = new ArrayList<Book>();
+		}
+		
+		this.books.add(pBook);
 	}
 	
 }
