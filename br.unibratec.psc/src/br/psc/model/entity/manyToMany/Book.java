@@ -1,4 +1,4 @@
-package br.psc.model.entity.manytomany;
+package br.psc.model.entity.manyToMany;
 
 import java.util.Collection;
 
@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 
 import br.psc.model.entity.EntityInterface;
 
-@Entity
+// @ E ntity
 public class Book implements EntityInterface {
 	
 	/**

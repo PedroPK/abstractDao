@@ -1,52 +1,54 @@
-package br.psc.model.entity;
+package br.psc.model.entity.multipleBags;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-// @ E ntity
-public class CollectableEntity implements EntityInterface {
+import br.psc.model.entity.EntityInterface;
+
+@Entity
+public class Daugther  implements EntityInterface {
 	
 	/**
-	 * Serial Version UID
+	 *- Serial Version UID
 	 */
-	private static final long serialVersionUID = 4842161357647159762L;
+	private static final long serialVersionUID = 7243109072223718550L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int		id;
+	private short id;
 	
-	private String	name;
+	private String name;
 	
-	public CollectableEntity() {
+	public Daugther() {
 		super();
 	}
-
-	public CollectableEntity(String pName) {
+	
+	public Daugther(String pName) {
 		super();
 		this.name = pName;
 	}
 
-	@Override
-	public Object getPrimaryKey() {
-		return getId();
+	public short getId() {
+		return id;
 	}
 	
-	public int getId() {
-		return this.id;
-	}
-	
-	public void setId(int pId) {
+	public void setId(short pId) {
 		this.id = pId;
 	}
 	
 	public String getName() {
-		return this.name;
+		return name;
 	}
 	
 	public void setName(String pName) {
 		this.name = pName;
+	}
+	
+	@Override
+	public Object getPrimaryKey() {
+		return getId();
 	}
 	
 	@Override
@@ -59,27 +61,21 @@ public class CollectableEntity implements EntityInterface {
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(Object pObj) {
+		if (this == pObj)
 			return true;
-		
-		if (obj == null)
+		if (pObj == null)
 			return false;
-		
-		if (this.getClass() != obj.getClass())
+		if (getClass() != pObj.getClass())
 			return false;
-		
-		CollectableEntity other = (CollectableEntity) obj;
-		
-		if (this.id != other.id)
+		Daugther other = (Daugther) pObj;
+		if (id != other.id)
 			return false;
-		
-		if (this.name == null) {
+		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!this.name.equals(other.name))
+		} else if (!name.equals(other.name))
 			return false;
-		
 		return true;
 	}
 	

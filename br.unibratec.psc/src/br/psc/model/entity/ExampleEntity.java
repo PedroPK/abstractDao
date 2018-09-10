@@ -10,8 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
+// @ E ntity
 public class ExampleEntity implements EntityInterface {
+	
+	/**
+	 * - Serial Version UID
+	 */
+	private static final long serialVersionUID = 4013783019226645429L;
 	
 	@Id
 	private String							id;

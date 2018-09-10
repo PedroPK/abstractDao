@@ -10,8 +10,8 @@ import org.hibernate.TransientObjectException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.psc.model.entity.manytomany.Author;
-import br.psc.model.entity.manytomany.Book;
+import br.psc.model.entity.manyToMany.Author;
+import br.psc.model.entity.manyToMany.Book;
 
 public class AuthorDAOTest {
 	
