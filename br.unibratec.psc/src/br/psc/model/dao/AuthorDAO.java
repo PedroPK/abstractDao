@@ -1,5 +1,10 @@
 package br.psc.model.dao;
 
-public class AuthorDAO extends AbstractDAO {
+import br.psc.model.entity.EntityInterface;
 
+public class AuthorDAO<Author> extends AbstractDAO<EntityInterface>
+//implements InterfaceDAO 
+{
+	
+	
 }

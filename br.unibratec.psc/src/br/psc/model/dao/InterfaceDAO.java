@@ -5,24 +5,28 @@ import javax.persistence.EntityTransaction;
 
 import br.psc.model.entity.EntityInterface;
 
-public interface InterfaceDAO {
+public interface InterfaceDAO<T extends EntityInterface> {
 	
-	public void definirClasseEntidade(Class pClasseEntidade ) ;
-	public Class getClasseEntidade();
+	public void defineEntityClass(Class<T> pClasseEntidade ) ;
+	public Class<T> getEntityClass();
 	
-	public void inserir(Object pObject);
-	public void inserir(Object pObject, EntityManager pEntityManager, boolean pFecharEntityManager);
+	public void insert(T pEntidade);
+	public void insert(T pEntidade, EntityManager pEntityManager, boolean pFecharEntityManager);
 	
-	public void alterar(Object pObject);
-	public void alterar(Object pObject, EntityManager pEntityManager, boolean pFecharEntityManager);
+	public void update(T pEntidade);
+	public void update(T pEntidade, EntityManager pEntityManager, boolean pFecharEntityManager);
 	
-	public void excluirPorObjeto(EntityInterface pEntidade);
-	public void excluirPorObjeto(Class pClasse, EntityInterface pEntidade);
-	public void excluirPorObjeto(Class pClasse, EntityInterface pEntidade, EntityManager pEntityManager, boolean pFecharEntityManager);
+	public void deleteObject(T pEntidade);
+	public void deleteObject(Class<T> pClasse, T pEntidade);
+	public void deleteObject(Class<T> pClasse, T pEntidade, EntityManager pEntityManager, boolean pFecharEntityManager);
 	
-	public void excluirPorChavePrimaria(Class pClasse, Object pChavePrimaria);
-	public void excluirPorChavePrimaria(Class pClasse, Object pChavePrimaria, EntityManager pEntityManager, boolean pFecharEntityManager);
+	public void deleteByPrimaryKey(Class<T> pClasse, Object pChavePrimaria);
+	public void deleteByPrimaryKey(Class<T> pClasse, Object pChavePrimaria, EntityManager pEntityManager, boolean pFecharEntityManager);
 	
-	public Object consultar(Class pClasse, Object pPrimaryKey);
+	public T selectByPrimaryKey(Class<T> pClasse, Object pPrimaryKey);
+	public T selectByPrimaryKey(Class<T> pClass, Object pPrimaryKey, EntityManager pEntityManager, boolean pCloseEntityManager);
+	
+	public T selectByEntity(Class<T> pClass, EntityInterface pEntity);
+	public T selectByEntity(Class<T> pClass, EntityInterface pEntity, EntityManager pEntityManager, boolean pCloseEntityManager);
 	
 }
