@@ -124,10 +124,10 @@ public abstract class AbstractDAO<T extends EntityInterface> implements Interfac
 	/**
 	 * Method to Select/Find a Registry in the Database, by receiving an Entity's Primary Key
 	 */
-	public T selectByEntity(Class<T> pClass, EntityInterface pEntity) {
+	public T selectByEntity(Class<T> pClass, T pEntity) {
 		return selectByEntity(pClass, pEntity, UtilJPA.getEntityManager(), true);
 	}
-	public T selectByEntity(Class<T> pClass, EntityInterface pEntity, EntityManager pEntityManager, boolean pCloseEntityManager) {
+	public T selectByEntity(Class<T> pClass, T pEntity, EntityManager pEntityManager, boolean pCloseEntityManager) {
 		T registry = pEntityManager.find(pClass, pEntity.getPrimaryKey());
 		
 		if ( pCloseEntityManager ) {

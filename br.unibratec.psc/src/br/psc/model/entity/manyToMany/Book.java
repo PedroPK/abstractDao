@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 
 import br.psc.model.entity.EntityInterface;
 
-// @ E ntity
+@Entity
 public class Book implements EntityInterface {
 	
 	/**

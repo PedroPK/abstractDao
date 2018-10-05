@@ -1,10 +1,19 @@
 package br.psc.model.dao;
 
-import br.psc.model.entity.EntityInterface;
+import javax.persistence.EntityManager;
 
-public class AuthorDAO<Author> extends AbstractDAO<EntityInterface>
+import br.psc.model.entity.manyToMany.Author;
+
+public class AuthorDAO extends AbstractDAO<Author>
 //implements InterfaceDAO 
 {
+
+	@Override
+	public Author selectByEntity(Class<Author> pClass, Author pEntity, EntityManager pEntityManager,
+			boolean pCloseEntityManager) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

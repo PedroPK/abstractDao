@@ -47,7 +47,7 @@ public class ContaCorrente implements EntityInterface {
 		this.numeroConta = numeroConta;
 	}
 	
-	public void depositar(ContaCorrente pConta, BigDecimal pValor) {
+	public void transferir(ContaCorrente pConta, BigDecimal pValor) {
 		if ( pConta.saldo.compareTo(pValor) >= 0 ) {
 			pConta.saldo = pConta.saldo.subtract(pValor);
 			

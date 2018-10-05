@@ -1,30 +1,28 @@
 package br.psc.model.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 
-import org.hibernate.PersistentObjectException;
-import org.hibernate.TransientObjectException;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import br.psc.model.entity.EntityInterface;
 import br.psc.model.entity.manyToMany.Author;
 import br.psc.model.entity.manyToMany.Book;
 
-public class AuthorDAOTest {
+public class AuthorDAOTest  {
 	
 	@Test
 	public void testAuthorInsert() {
 		Author author = new Author();
 		author.setName("Arthur Conan Doyle");
 		
-		AuthorDAO dao = new AuthorDAO<>();
+		AuthorDAO dao = new AuthorDAO();
 		dao.insert(author);
 		
-		Author selectedAuthor = (Author) dao.selectByEntity(Author.class, author);
+		Author selectedAuthor = dao.selectByPrimaryKey(Author.class, author.getPrimaryKey());
 		
 		assertNotNull(selectedAuthor);
 		
@@ -65,7 +63,7 @@ public class AuthorDAOTest {
 		
 		dao.update(author);
 		
-		Author selectedAuthor = (Author) dao.selectByEntity(author.getClass(), author);
+		Author selectedAuthor = (Author) dao.selectByEntity(Author.class, author);
 		
 		assertNotNull(selectedAuthor);
 		

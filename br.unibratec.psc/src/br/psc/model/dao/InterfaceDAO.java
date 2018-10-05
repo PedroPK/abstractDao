@@ -26,7 +26,7 @@ public interface InterfaceDAO<T extends EntityInterface> {
 	public T selectByPrimaryKey(Class<T> pClasse, Object pPrimaryKey);
 	public T selectByPrimaryKey(Class<T> pClass, Object pPrimaryKey, EntityManager pEntityManager, boolean pCloseEntityManager);
 	
-	public T selectByEntity(Class<T> pClass, EntityInterface pEntity);
-	public T selectByEntity(Class<T> pClass, EntityInterface pEntity, EntityManager pEntityManager, boolean pCloseEntityManager);
+	public T selectByEntity(Class<T> pClass, T pEntity);
+	public T selectByEntity(Class<T> pClass, T pEntity, EntityManager pEntityManager, boolean pCloseEntityManager);
 	
 }
