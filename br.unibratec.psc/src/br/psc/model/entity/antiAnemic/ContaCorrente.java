@@ -10,6 +10,11 @@ import br.psc.model.entity.EntityInterface;
 @Entity
 public class ContaCorrente implements EntityInterface {
 	
+	/**
+	 * Serial Version UID
+	 */
+	private static final long serialVersionUID = -602377075516987816L;
+	
 	private short agencia;
 	
 	@Id
@@ -54,7 +59,7 @@ public class ContaCorrente implements EntityInterface {
 			this.saldo = this.saldo.add(pValor);
 		}
 	}
-
+	
 	@Override
 	public Object getPrimaryKey() {
 		return this.getNumeroConta();

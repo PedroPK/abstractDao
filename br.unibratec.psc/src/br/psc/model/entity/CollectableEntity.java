@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-// @ E ntity
+@Entity
 public class CollectableEntity implements EntityInterface {
 	
 	/**
@@ -27,7 +27,7 @@ public class CollectableEntity implements EntityInterface {
 		super();
 		this.name = pName;
 	}
-
+	
 	@Override
 	public Object getPrimaryKey() {
 		return getId();

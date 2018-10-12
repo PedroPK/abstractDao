@@ -14,7 +14,7 @@ public class ContaCorrenteDAOTest {
 	public void testInsert() {
 		ContaCorrente cc = new ContaCorrente((short) 15091, "21685-2", new BigDecimal(100.0));
 		
-		ContaCorrenteDAO<ContaCorrente> dao = new ContaCorrenteDAO<>();
+		ContaCorrenteDAO<ContaCorrente> dao = new ContaCorrenteDAO<ContaCorrente>();
 		dao.insert(cc);
 	}
 	
@@ -22,7 +22,7 @@ public class ContaCorrenteDAOTest {
 	public void testSelect() {
 		ContaCorrente cc = new ContaCorrente((short) 15091, "21685-2", new BigDecimal(100.0));
 		
-		ContaCorrenteDAO<ContaCorrente> dao = new ContaCorrenteDAO<>();
+		ContaCorrenteDAO<ContaCorrente> dao = new ContaCorrenteDAO<ContaCorrente>();
 		ContaCorrente selectedCC = (ContaCorrente) dao.selectByPrimaryKey((Class<EntityInterface>) cc.getClass(), "21685-2");
 		
 		Assert.assertEquals(	cc,		selectedCC);

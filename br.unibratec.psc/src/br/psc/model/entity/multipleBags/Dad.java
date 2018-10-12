@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 
 import br.psc.model.entity.EntityInterface;
 
-//@Entity
+@Entity
 public class Dad implements EntityInterface {
 	
 	/**

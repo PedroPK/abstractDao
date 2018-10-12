@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 import br.psc.model.entity.EntityInterface;
 
-// @ E ntity
+@Entity
 public class Monografia implements EntityInterface {
 	
 	/**
@@ -72,7 +72,7 @@ public class Monografia implements EntityInterface {
 		
 		return true;
 	}
-
+	
 	@Override
 	public Object getPrimaryKey() {
 		return getDoi();
